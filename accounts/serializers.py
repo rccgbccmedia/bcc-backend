@@ -9,7 +9,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
     last_name = serializers.CharField(required=True)
     address = serializers.CharField(required=True)
     email = serializers.EmailField(required=True)
-    phone = serializers.PhoneNumberField(required=True)
+    phone = PhoneNumberField(required=True)
     class Meta:
         model=User
         fields=['id','email','address','password','first_name','last_name','phone']
