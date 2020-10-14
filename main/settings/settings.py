@@ -40,8 +40,8 @@ INSTALLED_APPS = [
 
     'rest_framework.authtoken',
     'rest_framework',
+    'dj_rest_auth',
     'djoser',
-    'rest_framework_swagger',
     'phonenumber_field',
     
 
@@ -93,6 +93,13 @@ DATABASES = {
     }
 }
 
+# Email
+EMAIL_USE_SSL = True
+EMAIL_PORT = 587
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'dannynwangwu2@gmail.com'
+EMAIL_HOST_PASSWORD = '22633167@Gmail.com'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -118,15 +125,12 @@ AUTH_USER_MODEL = 'accounts.User'
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-        
     ),
+
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema' 
 }
 
-SIMPLE_JWT = {
-   'AUTH_HEADER_TYPES': ('JWT',),
-}
-
+REST_USE_JWT = True
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/

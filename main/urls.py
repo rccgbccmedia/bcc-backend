@@ -15,8 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-# from rest_framework_swagger.views import get_swagger_view
 from rest_framework.documentation import include_docs_urls
+from dj_rest_auth.views import (LoginView, LogoutView, PasswordChangeView,
+                                PasswordResetConfirmView, PasswordResetView,
+                                UserDetailsView)
+
 
 
 # schema_view = get_swagger_view(title='Login API')
@@ -26,5 +29,8 @@ urlpatterns = [
     # path(r'', schema_view),
     path('admin/', admin.site.urls),
     path('', include('accounts.urls')),
-    path('docs/', include_docs_urls(title='BCC Backend-API', public=False))
+    path('docs/', include_docs_urls(title='BCC Backend-API', public=False)),
+    # path('dj-rest-auth/', include('dj_rest_auth.urls')),
+    # path('password/reset/confirm/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$', PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+
 ]

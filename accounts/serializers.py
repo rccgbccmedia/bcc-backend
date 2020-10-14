@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import User
 from phonenumber_field.serializerfields import PhoneNumberField
+from dj_rest_auth.serializers import LoginSerializer
 
 
 
@@ -21,7 +22,13 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         return user
 
 class UserDetailsSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = User
         fields = ['id', 'first_name', 'last_name', 'email', 'address', 'phone']
+        read_only_fields = ['email']
+
+class UserLoginSerializer(LoginSerializer):
+    username = None
+    class Meta: 
+        model = User
+        fields = ['email', 'password']

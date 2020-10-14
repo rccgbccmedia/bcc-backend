@@ -4,5 +4,7 @@ from . import views
 
 urlpatterns = [
     path('register/', views.UserRegistrationView.as_view(), name='user-registration'),
-    path('auth/', include('djoser.urls.jwt')),
+    path('user/',views.UserDetailsView.as_view(), name='user-details'),
+    path('login/', views.UserLoginView.as_view(), name= 'user-register',)
+    # path('auth/', include('djoser.urls.jwt')),
 ]
