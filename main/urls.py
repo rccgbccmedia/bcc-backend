@@ -29,7 +29,7 @@ urlpatterns = [
     # path(r'', schema_view),
     path('admin/', admin.site.urls),
     path('', include('accounts.urls')),
-    path('docs/', include_docs_urls(title='BCC Backend-API', public=False)),
+    path('docs/', include_docs_urls(title='BCC Backend-API', public=True)),
     # path('dj-rest-auth/', include('dj_rest_auth.urls')),
 
 

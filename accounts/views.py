@@ -33,16 +33,27 @@ class UserRegistrationView(generics.CreateAPIView):
 
 
 class UserLoginView(LoginView):
+    """
+    Check the credentials and return the REST Token
+    if the credentials are valid and authenticated.
+    Calls Django Auth login method to register User ID
+    in Django session framework
+    Accept the following POST parameters: username, password
+    Return the REST Framework Token Object's key.
+    """
     serializer_class = UserLoginSerializer
 
 class UserDetailsView(generics.RetrieveUpdateAPIView):
+
+
     """
-    Reads and updates UserModel fields
-    Accepts GET, PUT, PATCH methods.
-    Default accepted fields: username, first_name, last_name
-    Read-only fields: pk, email
-    Returns UserModel fields.
+    get:
+    Return a list of current user details.
+
+    put:
+    updates a the current user instance.
     """
+ 
 
     serializer_class = UserDetailsSerializer
     permission_classes = (IsAuthenticated,)
