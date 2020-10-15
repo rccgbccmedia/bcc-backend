@@ -13,4 +13,4 @@ def send_email():
         settings.EMAIL_HOST_USER,
         ['dannynwangwu@gmail.com']
     )
-    email.send(fail_silently=False)
+    email.send(fail_silently=True)
