@@ -7,11 +7,11 @@ from accounts.models import User
 class Event(models.Model):
 
     name = models.CharField(max_length=500, blank=False, null=False)
-    venue = models.CharField(max_length=500, blank=True, null=True)
-    time = models.DateTimeField(auto_now=False, auto_now_add=False)
-    capacity = models.BigIntegerField()
+    venue = models.CharField(max_length=500, blank=False, null=False)
+    time = models.DateTimeField(auto_now=False, auto_now_add=False, blank=False)
+    capacity = models.BigIntegerField(blank=True)
     attendees = models.ManyToManyField(User, related_name='courses_joined', blank=True)
-    description = models.TextField()
+    description = models.TextField(blank=False)
     created = models.DateTimeField(auto_now_add=True)
 
    
