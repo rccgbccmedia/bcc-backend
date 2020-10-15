@@ -3,6 +3,7 @@ from .serializers import EventSerializer
 from .models import Event
 from rest_framework import generics
 from rest_framework.viewsets import ModelViewSet
+from accounts.permissions import isAdminOrReadOnly
 
 
 
@@ -11,3 +12,6 @@ from rest_framework.viewsets import ModelViewSet
 class EventView(ModelViewSet):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
+    permission_classes = [isAdminOrReadOnly,]
+
+    
