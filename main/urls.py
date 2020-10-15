@@ -31,6 +31,6 @@ urlpatterns = [
     path('', include('accounts.urls')),
     path('docs/', include_docs_urls(title='BCC Backend-API', public=False)),
     # path('dj-rest-auth/', include('dj_rest_auth.urls')),
-    # path('password/reset/confirm/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$', PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+
 
 ]

@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework import status
 from django.contrib.auth import get_user_model
 from .models import User
-from .serializers import UserRegistrationSerializer, UserDetailsSerializer, UserLoginSerializer
+from .serializers import (UserRegistrationSerializer, UserDetailsSerializer, UserLoginSerializer, PasswordResetSerializer)
 from rest_framework import generics
 from django.db import IntegrityError
 from rest_framework.response import Response
@@ -61,3 +61,8 @@ class UserDetailsView(generics.RetrieveUpdateAPIView):
         django-rest-swagger
         """
         return get_user_model().objects.none()
+
+
+# password reset view
+class PasswordResetView(PasswordResetView):
+    serializer_class = PasswordResetSerializer

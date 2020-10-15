@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import User
 from phonenumber_field.serializerfields import PhoneNumberField
-from dj_rest_auth.serializers import LoginSerializer
+from dj_rest_auth.serializers import (LoginSerializer, PasswordResetSerializer)
 
 
 
@@ -32,3 +32,13 @@ class UserLoginSerializer(LoginSerializer):
     class Meta: 
         model = User
         fields = ['email', 'password']
+
+class PasswordResetSerializer(PasswordResetSerializer):
+    """
+    Serializer for requesting a password reset e-mail.
+    """
+    def get_email_options(self) :
+    
+        return {
+            'email_template_name': 'reset_password.html'
+        }
