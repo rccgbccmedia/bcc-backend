@@ -9,5 +9,7 @@ urlpatterns = [
     path('events/create/', views.EventView.as_view({'post': 'create'}), name='create-event'),
     path('events/<int:pk>/',views.EventView.as_view({'get': 'retrieve'}), name='get-event'),
     path('events/delete/<int:pk>/',views.EventView.as_view({'get': 'destroy'}), name='delete-event'),
+    path('events/update/<int:pk>/',views.EventView.as_view({'put': 'update'}), name='update-event'),
+
    
 ]
