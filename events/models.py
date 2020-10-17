@@ -6,15 +6,16 @@ from accounts.models import User
 
 class Event(models.Model):
 
-    name = models.CharField(max_length=500, blank=False, null=False)
-    venue = models.CharField(max_length=500, blank=False, null=False)
+    name = models.CharField(max_length=500, blank=False)
+    venue = models.CharField(max_length=500, blank=True)
     time = models.DateTimeField(auto_now=False, auto_now_add=False, blank=False)
-    capacity = models.BigIntegerField(blank=True)
-    attendees = models.ManyToManyField(User, related_name='courses_joined', blank=True)
+    capacity = models.BigIntegerField(blank=True, null=True)
     description = models.TextField(blank=False)
     created = models.DateTimeField(auto_now_add=True)
 
-   
+    def __str__(self):
+        return self.name
+
 
     class Meta: 
         # Add verbose name 
@@ -23,7 +24,12 @@ class Event(models.Model):
         ordering = ['-created']
 
 
-# class Attendance(models.Model):
+class Attendance(models.Model):
 
-#     event = models.OneToOneField(Event, on_delete=models.CASCADE, blank=False)
-#     attendees = models.ManyToManyField
+    event = models.OneToOneField(Event, related_name='events_attendance', on_delete=models.CASCADE, blank=False)
+    attendees = models.ManyToManyField(User, blank=True)
+
+    def __str__(self):
+        return " possible attendance for %s" % self.event.name
+
+
