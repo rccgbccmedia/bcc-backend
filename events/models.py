@@ -24,9 +24,9 @@ class Event(models.Model):
         ordering = ['-created']
 
 
-class Attendance(models.Model):
+class Rsvp(models.Model):
 
-    event = models.OneToOneField(Event, related_name='events_attendance', on_delete=models.CASCADE, blank=False)
+    event = models.OneToOneField(Event, related_name='events_rsvp', on_delete=models.CASCADE, blank=False)
     attendees = models.ManyToManyField(User, blank=True)
 
     def __str__(self):
