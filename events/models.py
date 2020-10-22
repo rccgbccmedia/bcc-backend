@@ -11,6 +11,7 @@ class Event(models.Model):
     time = models.DateTimeField(auto_now=False, auto_now_add=False, blank=False)
     capacity = models.BigIntegerField(blank=True, null=True)
     description = models.TextField(blank=False)
+    photo_url = model.UrlField(blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
