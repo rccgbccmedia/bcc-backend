@@ -24,10 +24,6 @@ class EventView(ModelViewSet):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
-        event_id = serializer.data["id"]
-        event = Event.objects.get(id=event_id)
-        # rsvp = Rsvp(event = event)
-        # rsvp.save(force_insert=True)
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
@@ -40,9 +36,8 @@ class EventView(ModelViewSet):
 class RsvpView(ModelViewSet):
     queryset = Rsvp.objects.all()
     serializer_class = RsvpSerializer
-    permission_classes = IsAuthenticated
+    permission_classes = [IsAuthenticated]
 
     def create(self, request, *args, **kwargs):
        
-        print(serializer)
         return Response("registeration for event successful", status=status.HTTP_201_CREATED)

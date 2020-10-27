@@ -11,6 +11,6 @@ urlpatterns = [
     path('events/delete/<int:pk>/',views.EventView.as_view({'get': 'destroy'}), name='delete-event'),
     path('events/update/<int:pk>/',views.EventView.as_view({'put': 'update'}), name='update-event'),
     path('events/rsvp/<int:pk>/',views.RsvpView.as_view({'post': 'create'}), name='attend-event'),
-
+    path('rsvp/',views.RsvpView.as_view({'get': 'list'}), name='my-events')
    
 ]
