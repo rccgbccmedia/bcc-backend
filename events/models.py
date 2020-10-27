@@ -11,7 +11,7 @@ class Event(models.Model):
     time = models.DateTimeField(auto_now=False, auto_now_add=False, blank=False)
     capacity = models.BigIntegerField(blank=True, null=True)
     description = models.TextField(blank=False)
-    photo_url = model.UrlField(blank=True, null=True)
+    photo_url = models.URLField(blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -27,10 +27,11 @@ class Event(models.Model):
 
 class Rsvp(models.Model):
 
-    event = models.OneToOneField(Event, related_name='events_rsvp', on_delete=models.CASCADE, blank=False)
-    attendees = models.ManyToManyField(User, blank=True)
+    event = models.ForeignKey(Event, related_name='events_rsvp', on_delete=models.CASCADE, blank=False)
+    user = models.ForeignKey(User, blank=False, related_name='rsvp_user', on_delete=models.CASCADE)
+    seat = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
-        return " possible attendance for %s" % self.event.name
+        return " RSVP for %s" % self.event.name
 
 
