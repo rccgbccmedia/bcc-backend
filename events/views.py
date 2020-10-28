@@ -39,5 +39,8 @@ class RsvpView(ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def create(self, request, *args, **kwargs):
+        """
+        Rsvp for authenticated user on an event
+        """
        
         return Response("registeration for event successful", status=status.HTTP_201_CREATED)
