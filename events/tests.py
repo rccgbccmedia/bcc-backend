@@ -73,25 +73,6 @@ class RsvpCreateTestCase(APITestCase):
     def api_authentication(self):
         self.client.credentials(HTTP_AUTHORIZATION='Bearer '+self.token)
 
-    def test_create_rsvp_authenticated(self):
-        """
-        Ensure authenticated user is able to create rsvp 
-        """
-
-        # create an event to test with
-        self.client.force_authenticate(user=self.admin)
-        data={"name":"sunday service","venue":"church premsesis","time":"2015-01-12T01:32","description":"holds every sunday","capacity":"100"}
-        response=self.client.post('/events/create/',data)
-        event_id = response.data['id']
-
-        # try to create rsvp for event
-        self.api_authentication()
-        
-        data = {"event":f'{event_id}', "seat": 23}
-        url = f'/events/rsvp/{event_id}/'
-        response = self.client.post(url, data)
-        self.assertEqual(response.status_code,status.HTTP_201_CREATED)
-
 
     def test_create_and_get_rsvp(self):
         """
@@ -106,15 +87,15 @@ class RsvpCreateTestCase(APITestCase):
 
         # try to create rsvp for unauthenticated user 
         self.client.force_authenticate(user=None, token=None)
-        data = {"event":event_id, "seat": 23}
+        # data = {"event":event_id, "seat": 23}
         url = f'/events/rsvp/{event_id}/'
-        response = self.client.post(url, data)
+        response = self.client.post(url)
         self.assertEqual(response.status_code,status.HTTP_401_UNAUTHORIZED)
 
         # try to create rsvp for authenticated user
         self.api_authentication()
         url = f'/events/rsvp/{event_id}/'
-        response = self.client.post(url, data)
+        response = self.client.post(url)
         self.assertEqual(response.status_code,status.HTTP_201_CREATED)
 
         # try to get all rsvps of authenticated user

@@ -13,4 +13,4 @@ class RsvpSerializer(serializers.ModelSerializer):
     class Meta:
         model = Rsvp
         fields = '__all__'
-        read_only_fields = ['seat', 'user']
+        # read_only_fields = ['seat', 'user']

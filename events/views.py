@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .serializers import EventSerializer, RsvpSerializer
 from rest_framework.response import Response
 from rest_framework import status
+
 
 from .models import Event, Rsvp
 from rest_framework import generics
@@ -40,7 +41,16 @@ class RsvpView(ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         """
-        Rsvp for authenticated user on an event
+        Rsvp for an event
         """
+        event = get_object_or_404(Event, pk=kwargs['pk'])
+        event.seats += 1
+        event.save()
+        seat_number = event.seats
+        rsvp = {'event': kwargs['pk'], 'seat':seat_number, 'user': request.user.id}
+        serializer = self.get_serializer(data=rsvp)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
        
-        return Response("registeration for event successful", status=status.HTTP_201_CREATED)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)

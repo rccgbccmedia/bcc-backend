@@ -10,6 +10,7 @@ class Event(models.Model):
     venue = models.CharField(max_length=500, blank=True)
     time = models.DateTimeField(auto_now=False, auto_now_add=False, blank=False)
     capacity = models.BigIntegerField(blank=True, null=True)
+    seats = models.BigIntegerField(blank=True, null=True, default = 0)
     description = models.TextField(blank=False)
     photo_url = models.URLField(blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
