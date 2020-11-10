@@ -26,7 +26,7 @@ class EventsGetCreateUpdateTestCase(APITestCase):
 
     def test_event_creation_non_admin(self):
         """
-        Ensure event cannot be created by non admin
+        Ensure event cannot be created by non-admin
         """
         self.api_authentication()
         data={"name":"sunday service","venue":"church premsesis","time":"2015-01-12T01:32","description":"holds every sunday","capacity":"100"}
