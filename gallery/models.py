@@ -8,7 +8,7 @@ class Image(models.Model):
     def __str__(self):
         return " image url: %s" % self.url
 
-class Video(model.Model):
+class Video(models.Model):
     url = models.URLField(blank=True, null=True)
     
     def __str__(self):
