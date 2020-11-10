@@ -27,3 +27,12 @@ class ImageGetListAddTestCase(APITestCase):
         data={"url":"https://images.daznservices.com/di/library/GOAL/67/ed/thomas-partey-arsenal-2020_1a1h8hhdz7xw611hds7hueajs4.jpg?t=2129690261&quality=100"}
         response=self.client.post('/images/add/',data)
         self.assertEqual(response.status_code,status.HTTP_403_FORBIDDEN)
+
+    def test_image_add_admin(self):
+        """
+        Ensure image can be added by admin
+        """
+        self.client.force_authenticate(user=self.admin)
+        data={"url":"https://images.daznservices.com/di/library/GOAL/67/ed/thomas-partey-arsenal-2020_1a1h8hhdz7xw611hds7hueajs4.jpg?t=2129690261&quality=100"}
+        response=self.client.post('/images/add/',data)
+        self.assertEqual(response.status_code,status.HTTP_201_CREATED)
