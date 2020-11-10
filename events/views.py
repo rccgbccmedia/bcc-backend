@@ -22,6 +22,9 @@ class EventView(ModelViewSet):
     permission_classes = [isAdminOrReadOnly]
 
     def create(self, request, *args, **kwargs):
+        """
+        create and event
+        """
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
@@ -30,6 +33,9 @@ class EventView(ModelViewSet):
 
 
     def destroy(self, request, *args, **kwargs):
+        """
+        Delete and event
+        """
         instance = self.get_object()
         self.perform_destroy(instance)
         return Response("event deleted", status=status.HTTP_204_NO_CONTENT)

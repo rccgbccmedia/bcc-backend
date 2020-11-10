@@ -30,6 +30,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('accounts.urls')),
     path('', include('events.urls')),
+    path('', include('gallery.urls')),
     path('docs/', include_docs_urls(title='BCC Backend-API', public=True)),
     # path('dj-rest-auth/', include('dj_rest_auth.urls')),
 
