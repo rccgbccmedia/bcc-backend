@@ -1,11 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from .serializers import EventSerializer, RsvpSerializer
 from rest_framework.response import Response
-from rest_framework import status
-
-
 from .models import Event, Rsvp
-from rest_framework import generics
+from rest_framework import generics, status
 from rest_framework.viewsets import ModelViewSet
 from accounts.permissions import isAdminOrReadOnly
 from rest_framework.permissions import BasePermission, IsAuthenticated, SAFE_METHODS, AllowAny
