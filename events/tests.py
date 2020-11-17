@@ -88,13 +88,13 @@ class RsvpCreateTestCase(APITestCase):
         # try to create rsvp for unauthenticated user 
         self.client.force_authenticate(user=None, token=None)
         # data = {"event":event_id, "seat": 23}
-        url = f'/events/rsvp/{event_id}/'
+        url = f'/events/{event_id}/rsvp/'
         response = self.client.post(url)
         self.assertEqual(response.status_code,status.HTTP_401_UNAUTHORIZED)
 
         # try to create rsvp for authenticated user
         self.api_authentication()
-        url = f'/events/rsvp/{event_id}/'
+        url = f'/events/{event_id}/rsvp/'
         response = self.client.post(url)
         self.assertEqual(response.status_code,status.HTTP_201_CREATED)
 
