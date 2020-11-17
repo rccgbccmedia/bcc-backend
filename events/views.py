@@ -57,3 +57,20 @@ class RsvpView(ModelViewSet):
         headers = self.get_success_headers(serializer.data)
        
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+    def list(self, request, *args, **kwargs):
+        print(kwargs)
+        if 'pk' in kwargs:
+            event_id = kwargs['pk']
+            queryset = Rsvp.objects.filter(event = event_id)
+        else:
+            queryset = Rsvp.objects.filter(user = self.request.user)
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
