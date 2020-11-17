@@ -6,7 +6,7 @@ from .serializers import (UserRegistrationSerializer, UserDetailsSerializer, Use
 from rest_framework import generics
 from django.db import IntegrityError
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from django.shortcuts import get_object_or_404
 from messaging.views import send_email
 from dj_rest_auth.views import (LoginView, LogoutView, PasswordChangeView,
@@ -77,3 +77,21 @@ class UserDetailsView(generics.RetrieveUpdateAPIView):
 # password reset view
 class PasswordResetView(PasswordResetView):
     serializer_class = PasswordResetSerializer
+
+
+class ListUsersView(generics.ListAPIView):
+
+    permission_classes = [IsAdminUser,]
+    queryset = User.objects.all()
+    serializer_class = UserDetailsSerializer
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
