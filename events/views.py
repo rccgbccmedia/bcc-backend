@@ -60,6 +60,10 @@ class RsvpView(ModelViewSet):
 
 
     def list(self, request, *args, **kwargs):
+        """
+        returns a list of all rsvp made on an event using the value provided in url path as event id.
+        returns a list of all rsvp made by requesting user if no url parameter is provided.
+        """
         if 'pk' in kwargs:
             event_id = kwargs['pk']
             queryset = Rsvp.objects.filter(event = event_id)
