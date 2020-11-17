@@ -18,7 +18,7 @@ class Accounts(TestCase):
         User.objects.create(
             email='sophia@testmail.com', first_name='sophia', last_name='fencer', phone="+2342933409812", address= "here")
 
-    def test_User_organisation(self):
+    def test_user_details(self):
         user_felix = User.objects.get(email='felix@testmail.com')
         user_sophia = User.objects.get(email='sophia@testmail.com')
         self.assertEqual(
@@ -62,3 +62,36 @@ class UserDetailsTestCase(APITestCase):
         self.client.force_authenticate(user=None)
         response=self.client.get(reverse('user-details'))
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+
+class ListAllUsers(APITestCase):
+ 
+    def setUp(self):
+        # create a new user by making a post request to register endpoint
+        self.user=self.client.post('/register/',data={'email':'mario@testmail.com','password':'i-keep-jumping', 'first_name':'mario', 'last_name':'icardi', 'phone': '+2348122633167', 'address': "here"})
+        # obtain a json web token for the newly created user
+        response=self.client.post('/login/',data={'email':'mario@testmail.com','password':'i-keep-jumping'})
+        self.token=response.data['access_token']
+        # create admin user
+        self.admin = User(email='admin@mail', password='pass', is_superuser=True, is_staff=True)
+        self.admin.save()
+
+    def api_authentication(self):
+        self.client.credentials(HTTP_AUTHORIZATION='Bearer '+self.token)
+
+    def test_list_all_users_non_admin(self):
+        """
+        Ensure list of all users cannot be accessed by non-admin
+        """
+        self.api_authentication()
+        response=self.client.get(reverse('all-users'))
+        self.assertEqual(response.status_code,status.HTTP_403_FORBIDDEN)
+
+    def test_list_all_users_admin(self):
+        """
+        Ensure list of all users can be accessed by admin
+        """
+        self.client.force_authenticate(user=self.admin)
+        data={"name":"sunday service","venue":"church premsesis","time":"2015-01-12T01:32","description":"holds every sunday","capacity":"100"}
+        response=self.client.get(reverse('all-users'))
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
