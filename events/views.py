@@ -60,7 +60,6 @@ class RsvpView(ModelViewSet):
 
 
     def list(self, request, *args, **kwargs):
-        print(kwargs)
         if 'pk' in kwargs:
             event_id = kwargs['pk']
             queryset = Rsvp.objects.filter(event = event_id)

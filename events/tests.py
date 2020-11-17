@@ -103,6 +103,12 @@ class RsvpCreateTestCase(APITestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code,status.HTTP_200_OK)
 
+        # try to get all rsvps for specific event
+        url = f'/rsvp/{event_id}/'
+        response = self.client.get(url)
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+
+
 
 
 
