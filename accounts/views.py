@@ -8,7 +8,10 @@ from django.db import IntegrityError
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from django.shortcuts import get_object_or_404
-from messaging.views import send_email
+
+from django.conf import settings
+
+
 from dj_rest_auth.views import (LoginView, LogoutView, PasswordChangeView,
                                 PasswordResetConfirmView, PasswordResetView,
                                 UserDetailsView)
@@ -28,7 +31,7 @@ class UserRegistrationView(generics.CreateAPIView):
         except IntegrityError:
             return Response({'detail': 'User with that email already exists.'},status=status.HTTP_409_CONFLICT)
         headers = self.get_success_headers(serializer.data)
-        send_email()
+
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 
